@@ -1,5 +1,8 @@
 # opencv343
-opencv 3.4.3 版本的代码示例程序
+汇总了关于opencv 3.4 版本的有关程序。
+开发环境： 
+	C++使用VS2015社区版 opencv3.4.3
+	python3.6 opencv3.4.1
 
 1.opencv343 
 opencv的Release的库文件
