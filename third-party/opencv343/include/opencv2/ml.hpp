@@ -815,7 +815,6 @@ public:
      * @param filepath path to serialized svm
      */
     CV_WRAP static Ptr<SVM> load(const String& filepath);
-	CV_WRAP virtual float eai_predict(const std::vector<float> &row_sample, bool returnDFVal, double &sum_ret) const  = 0;
 };
 
 /****************************************************************************************\
