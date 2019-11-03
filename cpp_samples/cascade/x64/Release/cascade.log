@@ -1,0 +1,20 @@
+﻿生成启动时间为 2019/11/3 10:43:22。
+     1>项目“D:\AI\cv\code\cpp_samples\cascade\cascade.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt cascade.cpp
+         cascade.cpp
+     1>cascade.cpp(32): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+         cascade.cpp(32): note: consider using '%zd' in the format string
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AI\cv\code\cpp_samples\x64\Release\cascade.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\AI\cv\code\cpp_samples\x64\Release\cascade.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AI\cv\code\cpp_samples\x64\Release\cascade.lib" /MACHINE:X64 x64\Release\cascade.obj
+         正在生成代码
+         0 of 299 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+           0 functions were new in current compilation
+           0 functions had inline decision re-evaluated but remain unchanged
+         已完成代码的生成
+         cascade.vcxproj -> D:\AI\cv\code\cpp_samples\x64\Release\cascade.exe
+     1>已完成生成项目“D:\AI\cv\code\cpp_samples\cascade\cascade.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.75
