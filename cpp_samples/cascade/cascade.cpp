@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 	}
 	cv::Mat src;
 	cv::Mat gray;
-	src = cv::imread("images/test.jpg");
+	src = cv::imread("../../images/yt.jpg");
 	cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
 	cv::equalizeHist(gray, gray);
 
