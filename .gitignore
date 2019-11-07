@@ -1,0 +1,8 @@
+cpp_samples/arm/x64/Release/
+cpp_samples/capture/x64/Release/
+cpp_samples/cascade/x64/Release/
+cpp_samples/matchTemplate/x64/Release/
+cpp_samples/minMaxLoc/x64/Release/
+cpp_samples/ROI_save/x64/Release/
+cpp_samples/Trackbar/x64/Release/
+cpp_samples/Vec3b/x64/Release/
