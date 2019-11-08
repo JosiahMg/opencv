@@ -41,5 +41,8 @@ HARR与LBP的区别：
 9.capture
 通过realsense相机显示深度图像
 
-10. arm
+10.arm
 通过realsense摄像头获取小方块的位置，并打印小方块中心点的相机坐标点。
+
+11.BackSub
+背景切除操作，使用两种算法：MOG与KNN.

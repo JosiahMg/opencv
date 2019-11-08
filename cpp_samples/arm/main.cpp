@@ -43,7 +43,7 @@ int main(int argc, char * argv[]) try
 	const auto window_name = "Display Image";
 	cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
 
-	const std::string input_file = "../../images/tmplate/";
+	const std::string input_file = "../../images/template/";
 
 	std::vector<cv::String> imgnames;
 	if (input_file[input_file.size() - 1] == '/' || input_file[input_file.size() - 1] == '\\') {
