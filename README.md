@@ -46,3 +46,6 @@ HARR与LBP的区别：
 
 11.BackSub
 背景切除操作，使用两种算法：MOG与KNN.
+
+12.inRange
+使用inRange函数检测视频中蓝色的物体
