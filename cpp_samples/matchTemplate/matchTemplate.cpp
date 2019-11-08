@@ -22,10 +22,10 @@ const char* match_t = "template match-demo";
 void Match_Demo(int, void*);
 int main(int argc, char** argv) {
 	// ´ý¼ì²âÍ¼Ïñ
-	src = imread("../../images/r12_Color.png");
+	src = imread("../../images/r1_Color.png");
 	
 	// Ä£°åÍ¼Ïñ
-	temp = imread("../../images/ROI.png");
+	temp = imread("../../images/template/ROI.png");
 	if (src.empty() || temp.empty()) {
 		printf("could not load image...\n");
 		return -1;
