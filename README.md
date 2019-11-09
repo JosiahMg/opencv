@@ -49,3 +49,9 @@ HARR与LBP的区别：
 
 12.inRange
 使用inRange函数检测视频中蓝色的物体
+
+13.eye-hand
+手眼标定代码，待分析
+
+14.eigen_sample
+Eigen的矩阵运算简单使用
