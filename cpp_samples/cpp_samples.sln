@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eye-hand", "eye-hand\eye-ha
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eigen_sample", "eigen_sample\eigen_sample.vcxproj", "{86526CB3-3E4B-4C93-8B32-72CEDDAC8E04}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eigen_geometry", "eigen_geometry\eigen_geometry.vcxproj", "{155597C9-7224-4C8C-968F-D3A18CFD368B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{86526CB3-3E4B-4C93-8B32-72CEDDAC8E04}.Release|x64.Build.0 = Release|x64
 		{86526CB3-3E4B-4C93-8B32-72CEDDAC8E04}.Release|x86.ActiveCfg = Release|Win32
 		{86526CB3-3E4B-4C93-8B32-72CEDDAC8E04}.Release|x86.Build.0 = Release|Win32
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Debug|x64.ActiveCfg = Debug|x64
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Debug|x64.Build.0 = Debug|x64
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Debug|x86.ActiveCfg = Debug|Win32
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Debug|x86.Build.0 = Debug|Win32
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Release|x64.ActiveCfg = Release|x64
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Release|x64.Build.0 = Release|x64
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Release|x86.ActiveCfg = Release|Win32
+		{155597C9-7224-4C8C-968F-D3A18CFD368B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -55,3 +55,8 @@ HARR与LBP的区别：
 
 14.eigen_sample
 Eigen的矩阵运算简单使用
+
+15.eigen_geometry
+旋转矩阵 -- 欧拉角 -- 角轴
+
+

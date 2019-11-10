@@ -67,7 +67,7 @@ static void handEyeCalibration_test(int argc, char* argv[])
     calibrationName = dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_PATH;
 
     calibrationName += dHAND_EYE_CALIBRATION_HAND_INFO_NAME;
-
+	//Read (x, y, z, rx, ry, rz) to handInfo from cvs file.
     ret = CRReadCalibrationHandInfo(&handInfo,
                                     calibrationName,
                                     dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_NUM);

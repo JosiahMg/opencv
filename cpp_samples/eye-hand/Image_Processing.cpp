@@ -58,7 +58,7 @@ void CRHandEyeParamsClear(CR_EyeInHand_Cali_Param*        pCaliInfo)
     }
 }
 
-
+//给CR_Image分配空间
 int CR_Image_Resource_Init(CR_Image** image)
 {
     int	exitCode = dFALSE;
@@ -274,8 +274,8 @@ int CRHandEyeCalcCalibration(CR_EyeInHand_Cali_Param*  pCaliInfo)
                      rmatWorldEndEffectorList,
                      tvecsWorldEndEffectorList;
 
-    Mat cameraMatrix(3, 3, CV_64F),
-        distCoeffs(1, 5, CV_64F);
+    Mat cameraMatrix(3, 3, CV_64F),//内参矩阵
+        distCoeffs(1, 5, CV_64F); //畸变矩阵
 
     // calculate intrinsic matrix and extrinsic matrix
     exitCode = CRAlgoCalcCameraMat(pCaliInfo->gridSize,
@@ -486,7 +486,7 @@ int CRHandEyeCalcImgToWorld(CR_EyeInHand_Cali_Param*        pCaliInfo,
     return exitCode;
 }
 
-
+//从棋盘图片中读取数据到CR_Image中
 int CR_ReadImg(CR_Image*   srcImg,
                char*       str)
 {

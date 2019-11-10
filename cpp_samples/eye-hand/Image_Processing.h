@@ -31,20 +31,20 @@ public:
     Mat oMiMatrix;
     Mat cMoRmatrix;
     Mat eMcRmatrix;
-    Mat wMeShotRmatrix;
+    Mat wMeShotRmatrix;											//3*3的矩阵，拍照棋盘时机械臂末端角度(rx, ry, rz)计算后的矩阵
     Mat wMeTouchRmatrix;
     Mat tvecsCamObject;
     Mat tvecsEndEffectorCam;
-    Mat tvecsShotWorldEndEffector;
+    Mat tvecsShotWorldEndEffector;								//3*1的矩阵，拍照棋盘时机械臂末端的坐标(x, y, z)
     Mat tvecsTouchWorldEndEffector;
     Mat tvecsEndEffectorTool;
-    Size imgResolution;
-    std::vector <CRHandInfo> calibrationHandInfo;
-    std::vector<std::vector<Point2f>> calibrationImgFeature;
+    Size imgResolution;											//棋盘图片的width*height
+    std::vector <CRHandInfo> calibrationHandInfo;				//存放机械臂(x y z rx ry rz)坐标信息
+    std::vector<std::vector<Point2f>> calibrationImgFeature;	//存放棋盘交点像素坐标，二维数组 13*9 个交点
     CRHandInfo shotInitHandInfo;
     CRHandInfo shotRunTimeHandInfo;
     CRHandInfo touchHandInfo;
-    int    gridSize;
+    int    gridSize;											//棋盘格的大小(mm)
     double toolWidth;
     double toolHeight;
     double toolTheta;

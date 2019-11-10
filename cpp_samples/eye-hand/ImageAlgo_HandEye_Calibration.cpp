@@ -50,7 +50,7 @@ double cameraHeight = 0;
 //#define CV_ROTATION_DEBUG
 
 using namespace cv;
-
+//对棋盘交点像素坐标值进行排序
 static std::vector<Point2f> CRAlgoSortCornerPoints(std::vector<Point2f> corners)
 {
     int i, num;
@@ -226,7 +226,7 @@ static void CRTsaiHandEye(Mat& eMc, std::vector<Mat> Hgij, std::vector<Mat> Hcij
     eMc.at<double>(3, 2) = 0.0;
     eMc.at<double>(3, 3) = 1.0;
 }
-
+//获取棋盘交点像素坐标到ImageCorners
 int CRAlgoTestChessBoard(Mat             		srcImg,
                          std::vector<Point2f>*	ImageCorners)
 {
@@ -1089,10 +1089,10 @@ int CRAlgoCalcWorldEndEffectorMat(std::vector <CRHandInfo> 	handInfoList,
 }
 
 
-int CRAlgoCalcEndEffectorCamMat(std::vector<Mat> 	tvecsWorldEndEffectorList,
-                                std::vector<Mat> 	rmatWorldEndEffectorList,
-                                std::vector<Mat> 	tvecsCamObjectList,
-                                std::vector<Mat> 	rmatCamObjectList,
+int CRAlgoCalcEndEffectorCamMat(std::vector<Mat> 	tvecsWorldEndEffectorList,	//机械臂(x, y, z)
+                                std::vector<Mat> 	rmatWorldEndEffectorList,	//机械臂(rx, ry, rz)
+                                std::vector<Mat> 	tvecsCamObjectList,			//通过棋盘格交点计算后的T
+                                std::vector<Mat> 	rmatCamObjectList,			//通过棋盘格交点计算后的R
                                 Mat&				tvecsEndEffectorCam,
                                 Mat&				rmatEndEffectorCam)
 {
