@@ -9,7 +9,12 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
-#include "unistd.h"
+
+#if (defined __GNUC__ && __GNUC__ >= 4)
+#include <unistd.h>
+#elif (defined _WIN32 || defined WINCE || defined __CYGWIN__)
+#include <windows.h>
+#endif
 
 #include "Utility.h"
 #include "Image_Params.h"

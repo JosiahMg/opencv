@@ -9,9 +9,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "unistd.h"
-#include <math.h>
 
+#if (defined __GNUC__ && __GNUC__ >= 4)
+#include <unistd.h>
+#elif (defined _WIN32 || defined WINCE || defined __CYGWIN__)
+#include <windows.h>
+#endif
+
+#include <math.h>
+#include <process.h>
 #include "Utility.h"
 #include "Image_Processing.h"
 #include "Image_Params.h"
