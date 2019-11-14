@@ -232,7 +232,7 @@ void get_intr_from_chess(const std::string &input_file, const cv::Size &board_si
 
 int main(int argc, char * argv[])
 {
-	const std::string input_file = "30mm11x8/";
+	const std::string input_file = "../../images/30mm11x8/";
 	cv::Size board_size = cv::Size(11, 8);								/* 标定板上每行、列的角点数 */
 	cv::Size square_size = cv::Size(30, 30);					/* 实际测量得到的标定板上每个棋盘格的大小 */
 	get_intr_from_chess(input_file, board_size, square_size);

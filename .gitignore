@@ -1,5 +1,6 @@
 cpp_samples/arm/x64/Release/
 cpp_samples/BackSub/x64/Release/
+cpp_samples/calibrateHandEye/x64/Release/
 cpp_samples/Calibration/x64/Release/
 cpp_samples/capture/x64/Release/
 cpp_samples/cascade/x64/Release/
@@ -10,5 +11,6 @@ cpp_samples/inRange/x64/Release/
 cpp_samples/matchTemplate/x64/Release/
 cpp_samples/minMaxLoc/x64/Release/
 cpp_samples/ROI_save/x64/Release/
+cpp_samples/test/
 cpp_samples/Trackbar/x64/Release/
 cpp_samples/Vec3b/x64/Release/

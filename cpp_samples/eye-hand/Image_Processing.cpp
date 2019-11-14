@@ -269,10 +269,10 @@ int CRHandEyeCalcCalibration(CR_EyeInHand_Cali_Param*  pCaliInfo)
 {
     int exitCode      = dFALSE;
 
-    std::vector<Mat> rmatCamObjectList,
-                     tvecsCamObjectList,
-                     rmatWorldEndEffectorList,
-                     tvecsWorldEndEffectorList;
+    std::vector<Mat> rmatCamObjectList,				//相机与物体的旋转矩阵
+                     tvecsCamObjectList,			//相机与物体的平移向量
+                     rmatWorldEndEffectorList,		//base与hand的旋转矩阵
+                     tvecsWorldEndEffectorList;		//base与hand的平移向量
 
     Mat cameraMatrix(3, 3, CV_64F),//内参矩阵
         distCoeffs(1, 5, CV_64F); //畸变矩阵

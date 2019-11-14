@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 {
 	cv::Mat src, dst;
 
-	src = cv::imread("../../images/ROI.png");
+	src = cv::imread("../../images/template/ROI.png");
 	dst = src.clone();
 
 	for (int col = 0; col < dst.cols; col++)

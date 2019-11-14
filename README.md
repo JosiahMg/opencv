@@ -16,7 +16,23 @@ RealSense的库文件 x64
 矩阵运算的c++库
 
 # 示例代码
-1. cascade
+
+##arm
+realsense相机结合机械臂实现物体的抓取动作，功能包括： 相机标定、手眼标定以及物体识别等
+
+##BackSub
+对静止的背景进行切除操作，算法有：MOG与KNN.
+
+##calibrateHandEye
+opencv4.1.1实现eye-in-hand，计算出R_cam2gripper和t_cam2gripper。
+
+##Calibration
+相机内参标定，通过opencv实现以和realsense SDK两种方式。
+
+##capture
+通过realsense相机显示深度图像
+
+##cascade
 级联分类器的使用，使用opencv训练好的人脸识别模型，代码中包括一张图片的检测和打开0号摄像头的人脸检测
 HARR与LBP的区别：
 	(1). HARR特征是浮点数计算
@@ -26,43 +42,33 @@ HARR与LBP的区别：
 	(5). 扩大LBP的样本数据，训练结果可以跟HARR一样
 	(6). LBP的速度一般可以比HARR快几倍
 
-2. matchTemplate
-模板匹配
+##eigen_geometry
+旋转矩阵 -- 欧拉角 -- 角轴
+其中包括了opencv实现的欧拉角到旋转矩阵的转换功能。
 
-3. minMaxLoc
-寻找图片中最大像素和最小像素的坐标值
-
-4. ROI_save
-图片区域保存
-
-5.Trackbar
-状态条的使用
-
-6.Vec3b
-设置三通道像素值
-
-7.capture
-通过realsense相机显示深度图像
-
-8.arm
-通过realsense摄像头获取小方块的位置，并打印小方块中心点的相机坐标点。
-
-9.BackSub
-背景切除操作，使用两种算法：MOG与KNN.
-
-10.inRange
-使用inRange函数检测视频中蓝色的物体
-
-11.eye-hand
-手眼标定代码，待分析
-
-12.eigen_sample
+##eigen_sample
 Eigen的矩阵运算简单使用
 
-13.eigen_geometry
-旋转矩阵 -- 欧拉角 -- 角轴
+##eye-hand
+eye-in-hand实现，网络资源,基本功能是首先进行摄像头的标定，然后通过tsai算法计算出Mx。
 
-14.Calibration
-相机内参标定，包括opencv实现以及通过realsense SDK直接获取。
+##inRange
+使用inRange函数检测视频中蓝色的物体，capture.open(2)设置打开第几个摄像头。
+
+##matchTemplate
+模板匹配，使用模板文件匹配图片
+
+##minMaxLoc
+寻找图片中最大像素和最小像素的坐标值
+
+##ROI_save
+图片区域保存
+
+##Trackbar
+状态条的使用
+
+##Vec3b
+设置三通道像素值
+
 
 

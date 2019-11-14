@@ -28,22 +28,22 @@ typedef struct struct_CR_Image
 /* eye in hand calibration parameters */
 class CR_EyeInHand_Cali_Param {
 public:
-    Mat oMiMatrix;
-    Mat cMoRmatrix;
-    Mat eMcRmatrix;
-    Mat wMeShotRmatrix;											//3*3的矩阵，拍照棋盘时机械臂末端角度(rx, ry, rz)计算后的矩阵
-    Mat wMeTouchRmatrix;
-    Mat tvecsCamObject;
-    Mat tvecsEndEffectorCam;
-    Mat tvecsShotWorldEndEffector;								//3*1的矩阵，拍照棋盘时机械臂末端的坐标(x, y, z)
-    Mat tvecsTouchWorldEndEffector;
+    Mat oMiMatrix;												//相机的投影矩阵M = 内参矩阵*外参矩阵.inv()
+    Mat cMoRmatrix;												//第一张图片的旋转矩阵R
+    Mat eMcRmatrix;												//hand到相机的旋转矩阵
+    Mat wMeShotRmatrix;											//3*3的矩阵，机械臂第一个pose末端角度(rx, ry, rz)计算后的旋转矩阵
+    Mat wMeTouchRmatrix;										//机械臂坐标 R(-180, 0, 110)
+    Mat tvecsCamObject;											//第一张图片的平移向量t
+    Mat tvecsEndEffectorCam;									//hand到相机的平移向量
+    Mat tvecsShotWorldEndEffector;								//3*1的矩阵，机械臂第一个POSE的末端的坐标(x, y, z)
+    Mat tvecsTouchWorldEndEffector;								//机械臂坐标 T(0, 0, 110)
     Mat tvecsEndEffectorTool;
     Size imgResolution;											//棋盘图片的width*height
     std::vector <CRHandInfo> calibrationHandInfo;				//存放机械臂(x y z rx ry rz)坐标信息
     std::vector<std::vector<Point2f>> calibrationImgFeature;	//存放棋盘交点像素坐标，二维数组 13*9 个交点
     CRHandInfo shotInitHandInfo;
-    CRHandInfo shotRunTimeHandInfo;
-    CRHandInfo touchHandInfo;
+    CRHandInfo shotRunTimeHandInfo;								//机械臂第一个姿态的(x, y, z, rx, ry, rz)
+    CRHandInfo touchHandInfo;									//(0, 0, 110, -180, 0, 0)
     int    gridSize;											//棋盘格的大小(mm)
     double toolWidth;
     double toolHeight;
@@ -52,7 +52,7 @@ public:
 
 class CR_EyeInHand_Result {
     public:
-    std::vector<Point2f> imgPList;
+    std::vector<Point2f> imgPList;	//第一张图片的交点像素坐标值
     std::vector<Point3f> worldPList;
     std::vector<CRAngleInfo> worldAngleList;
 };

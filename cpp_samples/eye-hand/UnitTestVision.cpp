@@ -18,7 +18,7 @@
 
 #define dCHESS_BOARD_RUNTIME_IMG_NAME "1.bmp"
 
-#define dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_PATH "./testImg/"
+#define dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_PATH "../../images/chessboard/"
 #define dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_NUM 10
 #define dHAND_EYE_CALIBRATION_HAND_INFO_NAME "calibration_hand_info.csv"
 #define dHAND_EYE_CALIBRATION_GRID_SIZE 5
@@ -75,12 +75,12 @@ static void handEyeCalibration_test(int argc, char* argv[])
 
     printf("press 'n' or 'N' to grab calibration images/press 'e' or 'E' to leave\n");
 
-    while(true)
+	for (int i = 0; i < 10; i++)
     {
-        std::getline(std::cin, input_str);
+        //std::getline(std::cin, input_str);
 
-        if((input_str == "n" ) || (input_str == "N"))
-        {
+        //if((input_str == "n" ) || (input_str == "N"))
+       // {
             bool found = false;
 
             readImg_str = dHAND_EYE_CALIBRATION_CRCALIBRATION_IMG_PATH;
@@ -114,12 +114,12 @@ static void handEyeCalibration_test(int argc, char* argv[])
             PRINT_ERROR_CODE(ret)
 
             printf("found:%d\n",found);
-        }
+        //}
 
-        if((input_str == "e") || (input_str == "E"))
-        {
-            break;
-        }
+     //   if((input_str == "e") || (input_str == "E"))
+     //   {
+     //       break;
+      //  }
     }
 
     for(i = 0; i < (int)caliParams->calibrationHandInfo.size(); i++)

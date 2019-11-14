@@ -308,7 +308,7 @@ int CRAlgoCalcHomogeneousMat(Mat     translateVec,
 
     return exitCode;
 }
-
+//欧拉角转换成旋转矩阵
 int CRAlgoCalcAngleToRmat(CRAngleInfo 	angle,
                            Mat&        	R)
 {
@@ -375,7 +375,7 @@ int CRAlgoCalcAngleToRmat(CRAngleInfo 	angle,
 
     return exitCode;
 }
-
+//旋转矩阵转换成欧拉角
 int CRAlgoCalcRmatToAngle(Mat 			R,
                           CRAngleInfo& 	angle)
 {
@@ -478,7 +478,7 @@ int CRAlgoCVSaveResultAsImg(unsigned char*    raw_data,
    return exitCode;
 }
 
-
+//机械臂末端相对base的坐标
 int CRAlgoCalcWorldEndEffectorVec(CRHandInfo 	handInfo,
                                   Mat& 			rvecsWorldEndEffector,
                                   Mat& 			tvecsWorldEndEffector)
@@ -685,14 +685,14 @@ int CRAlgoCalcProjectionMat(Mat 	rmatCamObject,
 
 
 int CRAlgoCalcWorldPoints(std::vector<Point2f>        imagePoints,
-                           Mat                        oMiMatrix,
-                           Mat                        cMoRmatrix,
-                           Mat                        eMcRmatrix,
-                           Mat                        wMeShotRmatrix,
+                           Mat                        oMiMatrix, //相机的投影矩阵M = 内参矩阵*外参矩阵.inv()
+                           Mat                        cMoRmatrix,//第一张图片的旋转矩阵R
+                           Mat                        eMcRmatrix,//hand到相机的旋转矩阵
+                           Mat                        wMeShotRmatrix,//3*3的矩阵，拍照棋盘时机械臂末端角度(rx, ry, rz)计算后的旋转矩阵
                            Mat                        wMeTouchRmatrix,
-                           Mat                        tvecsCamObject,
-                           Mat                        tvecsEndEffectorCam,
-                           Mat                        tvecsShotWorldEndEffector,
+                           Mat                        tvecsCamObject,//第一张图片的平移向量t
+                           Mat                        tvecsEndEffectorCam,//hand到相机的平移向量
+                           Mat                        tvecsShotWorldEndEffector,//3*1的矩阵，拍照棋盘时机械臂末端的坐标(x, y, z)
                            Mat                        tvecsTouchWorldEndEffector,
                            Mat                        tvecsEndEffectorTool,
                            std::vector<Point3f>*      worldPoints,
