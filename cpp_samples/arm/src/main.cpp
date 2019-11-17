@@ -1,6 +1,16 @@
+/*
+Author : meng hui
+Date : 20191112
+Describe : Camera calibration
+Company : Coman Robot
+*/
+
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
 #include <librealsense2/rsutil.h>
 #include <opencv2/opencv.hpp>   // Include OpenCV API
+#include "handEyeCalibration.h"
+
+
 
 #if (defined _WIN32 || defined WINCE || defined __CYGWIN__)
 #define OPENCV_VERSION "343"
@@ -24,6 +34,7 @@ void get3d_from2d(const rs2::depth_frame& frame, pixel u, float *upoint);
 
 int main(int argc, char * argv[]) try
 {
+#if 0
 	// Declare depth colorizer for pretty visualization of depth data
 	rs2::colorizer color_map;
 
@@ -143,6 +154,49 @@ int main(int argc, char * argv[]) try
 		// Update the window with new data
 		cv::imshow(window_name, image);
 	}
+#endif
+
+
+	//标定
+	if (true) 
+	{
+		std::string path = R"(data/images/)";
+		HandEyeCalibration handEye(path, "camera_data.yml", { 11,8 }, 30);
+		bool ret = handEye.doCalibration();
+		if (ret)
+		{
+			auto camMat = handEye.getCameraMatrix();
+			auto distCoffMat = handEye.getDistCoeffsMatrix();
+			auto extBigMat = handEye.getExtrinsicsBigMat();
+			auto hasCheessVec = handEye.getFoundCheeseBoardVec();
+			for (auto& v : hasCheessVec)
+			{
+				std::cout << v << " ";
+			}
+				
+			std::cout << std::endl;
+			std::cout << std::endl << camMat      << std::endl;
+			std::cout << std::endl << distCoffMat << std::endl;
+			std::cout << std::endl << extBigMat   << std::endl << std::endl;  // {r,t格式}
+		}
+	}
+
+
+	//// 读取外参 姿态矩阵 4*4
+	std::vector<cv::Mat> vecHg, vecHc;
+	bool ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
+		R"(data/pose/)", vecHg, vecHc, false);
+
+	//// 手眼标定
+	cv::Mat Hcg;
+	HandEyeCalibration::calibrateEyeInHand(Hcg, vecHg, vecHc, HandEyeCalibration::HAND_EYE_NAVY);
+	std::cout << Hcg << std::endl << HandEyeCalibration::isRotationMatrix(Hcg) << std::endl << std::endl;
+
+	//calibrateHandEye(R_gripper2base, t_gripper2base, R_target2cam, t_target2cam, R_cam2gripper, t_cam2gripper, cv::CALIB_HAND_EYE_TSAI);
+
+
+	cv::Mat camMatrix, distCoefs;
+	ret = HandEyeCalibration::readCameraParameters("camera_data.yml", camMatrix, distCoefs);
 
 	return EXIT_SUCCESS;
 }
