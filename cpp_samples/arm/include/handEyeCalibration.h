@@ -23,7 +23,8 @@ public:
 	HandEyeCalibration(const std::string& imgsDirector,
 		const std::string& outputFilename = "camera_data.yml",
 		cv::Size boardSize = cv::Size(11, 8),
-		double squareSize = 10.);  // mm or m
+		double squareSize = 10.,
+		Pattern type= CHESSBOARD);  // mm or m
 
 	~HandEyeCalibration();
 

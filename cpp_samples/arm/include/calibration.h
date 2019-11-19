@@ -35,7 +35,8 @@ public:
 		const std::string& imgsDirectory,
 		const std::string& outputFilename,
 		cv::Size boardSize,
-		double squareSize
+		double squareSize,
+		Pattern type
 		);
 
 	//该类的入口函数

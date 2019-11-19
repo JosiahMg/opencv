@@ -11,13 +11,15 @@ Company : Coman Robot
 Calibration::Calibration(const std::string& imgsDirectory,
 	const std::string& outputFilename,
 	cv::Size boardSize,
-	double squareSize
+	double squareSize,
+	Pattern type
 	)
 {
 	this->imgsDirectory = imgsDirectory;
 	this->outputFilename = outputFilename;
 	this->boardSize = boardSize;
 	this->squareSize = squareSize;
+	this->pattern = type;
 }
 
 
@@ -302,20 +304,55 @@ bool Calibration::doCalibration()
 		imageSize = view.size();
 		std::vector<cv::Point2f> pointbuf;
 		cvtColor(view, viewGray, cv::COLOR_BGR2GRAY);
-		bool found = findChessboardCorners(view, boardSize, pointbuf,
-			cv::CALIB_CB_ADAPTIVE_THRESH | cv::CALIB_CB_FAST_CHECK | cv::CALIB_CB_NORMALIZE_IMAGE);
-		if (pattern == CHESSBOARD && found)
+		bool found = false;
+
+		switch (pattern)
 		{
-			//获取亚像素角点
-			cornerSubPix(viewGray, pointbuf, cv::Size(11, 11), cv::Size(-1, -1),
-				cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 30, 0.1));
-			imagePoints.push_back(pointbuf);
-			foundCheeseBoardVec[i] = 1;
+		case CHESSBOARD:
+			found = findChessboardCorners(view, boardSize, pointbuf,
+				cv::CALIB_CB_ADAPTIVE_THRESH | cv::CALIB_CB_FAST_CHECK | cv::CALIB_CB_NORMALIZE_IMAGE);
+			if (found)
+			{
+				//获取亚像素角点
+				cornerSubPix(viewGray, pointbuf, cv::Size(11, 11), cv::Size(-1, -1),
+					cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 30, 0.1));
+				imagePoints.push_back(pointbuf);
+				foundCheeseBoardVec[i] = 1;
+			}
+			else
+			{
+				foundCheeseBoardVec[i] = 0;
+			}
+			break;
+
+		case CIRCLES_GRID:
+			found = findCirclesGrid(view, boardSize, pointbuf, cv::CALIB_CB_SYMMETRIC_GRID);
+			if (found)
+			{
+				imagePoints.push_back(pointbuf);
+				foundCheeseBoardVec[i] = 1;
+			}
+			else
+			{
+				foundCheeseBoardVec[i] = 0;
+			}
+			break;
+			//非对称的圆形棋盘
+		case ASYMMETRIC_CIRCLES_GRID:
+			found = findCirclesGrid(view, boardSize, pointbuf, cv::CALIB_CB_ASYMMETRIC_GRID);
+			if (found)
+			{
+				imagePoints.push_back(pointbuf);
+				foundCheeseBoardVec[i] = 1;
+			}
+			else
+			{
+				foundCheeseBoardVec[i] = 0;
+			}
+			break;
 		}
-		else
-		{
-			foundCheeseBoardVec[i] = 0;
-		}
+
+
 		if (showCorners)
 		{
 			if (found)

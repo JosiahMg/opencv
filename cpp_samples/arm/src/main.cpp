@@ -19,10 +19,10 @@ Company : Coman Robot
 #pragma comment(lib, "realsense2_" REALSENSE_VERSION ".lib")
 #endif
 
-#define COLOR_COLS		640
-#define COLOR_ROWS		480
-#define DEPTH_COLS		640
-#define DEPTH_ROWS		480
+#define COLOR_COLS		1280
+#define COLOR_ROWS		720
+#define DEPTH_COLS		1280
+#define DEPTH_ROWS		720
 
 
 using pixel = std::pair<int, int>;
@@ -65,7 +65,11 @@ int main(int argc, char * argv[]) try
 	}
 
 
-	while (cv::waitKey(100) < 0 && cv::getWindowProperty(window_name, cv::WND_PROP_AUTOSIZE) >= 0)
+	double center_x = 0;
+	double center_y = 0;
+	float cpoint[3] = { 0, 0, 0 };
+
+	while (cv::getWindowProperty(window_name, cv::WND_PROP_AUTOSIZE) >= 0)
 	{
 
 		rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
@@ -90,6 +94,7 @@ int main(int argc, char * argv[]) try
 		cv::Point final_Loc(0,0);
 		int final_w = 0;
 		int final_h = 0;
+
 
 		for (const auto &it : imgnames)
 		{
@@ -140,10 +145,10 @@ int main(int argc, char * argv[]) try
 				}
 			}
 		}
-		uint center_x = final_Loc.x + final_w / 2;
-		uint center_y = final_Loc.y + final_h / 2;
+		center_x = final_Loc.x + final_w / 2;
+		center_y = final_Loc.y + final_h / 2;
 
-		float cpoint[3] = { 0, 0, 0 };
+
 		get3d_from2d(depth, pixel(center_x, center_y), cpoint);
 
 		std::cout << cpoint[0] << " " << cpoint[1] << " " << cpoint[2] << std::endl;
@@ -153,15 +158,26 @@ int main(int argc, char * argv[]) try
 		//cv::putText(image, "text", cv::Point(center_x, center_y), cv::FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2);
 		// Update the window with new data
 		cv::imshow(window_name, image);
+		if (cv::waitKey(100) == 27)
+		{
+			std::cout << "center_x = " << center_x << std::endl;
+			std::cout << "center_y = " << center_y << std::endl;
+			break;
+		}
 	}
-#endif
+#else
 
+
+
+#if 1
 
 	//标定
-	if (true) 
+	if (false) 
 	{
 		std::string path = R"(data/images/)";
-		HandEyeCalibration handEye(path, "camera_data.yml", { 11,8 }, 30);
+		//CHESSBOARD : 11*8  30mm
+		//CIRCLES_GRID : 7*7  3.75mm
+		HandEyeCalibration handEye(path, "camera_data.yml", { 11,8 }, 0.03, Calibration::CHESSBOARD);
 		bool ret = handEye.doCalibration();
 		if (ret)
 		{
@@ -179,27 +195,77 @@ int main(int argc, char * argv[]) try
 			std::cout << std::endl << distCoffMat << std::endl;
 			std::cout << std::endl << extBigMat   << std::endl << std::endl;  // {r,t格式}
 		}
+
+		//// 读取外参 姿态矩阵 4*4
+		std::vector<cv::Mat> vecHg, vecHc;
+		bool ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
+			R"(data/pose/)", vecHg, vecHc, false);
+
+		//// 手眼标定
+		cv::Mat Hcg;
+		HandEyeCalibration::calibrateEyeInHand(Hcg, vecHg, vecHc, HandEyeCalibration::HAND_EYE_TSAI);
+		std::cout << "Hcg ==== " << std::endl;
+		std::cout << Hcg << std::endl << HandEyeCalibration::isRotationMatrix(Hcg) << std::endl << std::endl;
+		std::cout << "-------------------" << std::endl;
+		//calibrateHandEye(R_gripper2base, t_gripper2base, R_target2cam, t_target2cam, R_cam2gripper, t_cam2gripper, cv::CALIB_HAND_EYE_TSAI);
 	}
 
 
-	//// 读取外参 姿态矩阵 4*4
-	std::vector<cv::Mat> vecHg, vecHc;
-	bool ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
-		R"(data/pose/)", vecHg, vecHc, false);
-
-	//// 手眼标定
-	cv::Mat Hcg;
-	HandEyeCalibration::calibrateEyeInHand(Hcg, vecHg, vecHc, HandEyeCalibration::HAND_EYE_NAVY);
-	std::cout << Hcg << std::endl << HandEyeCalibration::isRotationMatrix(Hcg) << std::endl << std::endl;
-
-	//calibrateHandEye(R_gripper2base, t_gripper2base, R_target2cam, t_target2cam, R_cam2gripper, t_cam2gripper, cv::CALIB_HAND_EYE_TSAI);
+	cv::Point2d imgPt(664.0, 332.0);
+	double distance = 0.553;
+	cv::Mat e_pos = (cv::Mat_<double>(1, 6) << -0.14579, 0.74027, -0.01126, 177.296532, -0.864936, -10.931379);
 
 
 	cv::Mat camMatrix, distCoefs;
-	ret = HandEyeCalibration::readCameraParameters("camera_data.yml", camMatrix, distCoefs);
+	HandEyeCalibration::readCameraParameters("camera_data.yml", camMatrix, distCoefs);
+	cv::Mat imgPosHomo = cv::Mat::ones(3, 1, CV_64F);
+	cv::Mat(imgPt).copyTo(imgPosHomo({ 0,0,1,2 }));
+	std::cout << "image point :" << imgPosHomo << std::endl;
+	
+	cv::Mat camMatInv = camMatrix.inv(cv::DECOMP_SVD);
+	cv::Mat camPos = camMatInv*distance*imgPosHomo;
+	std::cout << "cam point :" << camPos << std::endl;
 
+
+
+	cv::FileStorage fs("EyeInHandMatrix.yml", cv::FileStorage::READ);
+	cv::Mat Hcg = fs["handEyeMatrix"].mat();
+	std::cout << "Hcg ==== " << std::endl;
+	std::cout << Hcg << std::endl;
+	std::cout << "-------------------" << std::endl;
+
+	cv::Mat Hcg1 = (cv::Mat_<double>(4, 4) << 0.98703, 0.149747, -0.0578592, -0.00130039,
+		-0.153186,  0.986347, -0.0604505, -0.118855,
+		0.048017, 0.0685297,  0.996493,  0.139646,
+		0.0,  0.0,  0.0,  1.0);
+
+
+	cv::Mat tmp = HandEyeCalibration::attitudeVectorToMatrix(e_pos, false, "xyz");
+
+	//	cv::Mat camp = (cv::Mat_<double>(4, 1) <<
+	//		cpoint[0]*100, cpoint[1] * 100, cpoint[2] * 100,1);
+
+	//	cv::Mat pos_m = tmp*X.inv()*camp;
+	cv::Point3d pos = HandEyeCalibration::getWorldPos(
+		imgPt, distance, Hcg, tmp, camMatrix, cv::Mat(), cv::Mat());
+	//	std::cout << "Object =" << pos_m << std::endl;
+	std::cout << "Object =" << pos << std::endl;
+
+
+#endif
+#endif
 	return EXIT_SUCCESS;
 }
+
+
+
+
+
+
+
+
+
+
 catch (const rs2::error & e)
 {
 	std::cerr << "RealSense error calling " << e.get_failed_function() << "(" << e.get_failed_args() << "):\n    " << e.what() << std::endl;
@@ -260,7 +326,7 @@ void get3d_from2d(const rs2::depth_frame& frame, pixel u, float *upoint)
 	// (since the compiler can't inline these)
 	// However, in this example it is not one of the bottlenecks
 	auto udist = frame.get_distance(upixel[0], upixel[1]);
-
+	std::cout << "distant = " << udist << std::endl;
 	// Deproject from pixel to point in 3D
 	rs2_intrinsics intr = frame.get_profile().as<rs2::video_stream_profile>().get_intrinsics(); // Calibration data
 	rs2_deproject_pixel_to_point(upoint, &intr, upixel, udist);

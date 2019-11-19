@@ -9,8 +9,8 @@ Company : Coman Robot
 
 
 HandEyeCalibration::HandEyeCalibration(const std::string& imgsDirector,
-	const std::string& outputFilename, cv::Size boardSize, double squareSize) :
-	Calibration(imgsDirector, outputFilename, boardSize, squareSize)
+	const std::string& outputFilename, cv::Size boardSize, double squareSize, Pattern type) :
+	Calibration(imgsDirector, outputFilename, boardSize, squareSize, type)
 {
 }
 
@@ -322,6 +322,7 @@ bool HandEyeCalibration::readDatasFromFile(
 			if (!fs.isOpened()) {
 				std::cout << "Can not open \"" << file << "\"." << std::endl;	return false;
 			}
+			std::cout << "Open " << xmlFiles[i] << std::endl;
 			std::vector<double> tmp_6; // specific items 6
 			for (int i = 0; i < 6; ++i) {
 				double val = fs[cv::format("Position%d", i)].real();
