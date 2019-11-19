@@ -91,12 +91,11 @@ public:
 	*	@return 空间三维点坐标
 	*/
 	static cv::Point3d getWorldPos(cv::Point2d& imgPt, double z, cv::Mat& Hcg, cv::Mat& Hg,
-		cv::Mat& camMatrix, cv::Mat& refHg = cv::Mat(), cv::Mat& refExtMatrix = cv::Mat());
+		cv::Mat& camMatrix);
 
 	static std::vector<cv::Point3d> getWorldPos(
 		std::vector<cv::Point2d>& imgPts, double z,
-		cv::Mat& Hcg, cv::Mat& Hg, cv::Mat& camMatrix,
-		cv::Mat& refHg = cv::Mat(), cv::Mat& refExtMatrix = cv::Mat()) = delete;
+		cv::Mat& Hcg, cv::Mat& Hg, cv::Mat& camMatrix) = delete;
 
 	//计算eye-in-hand中相机与末端手臂的Rt
 	static void calibrateEyeInHand(

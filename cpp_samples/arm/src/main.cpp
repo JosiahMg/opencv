@@ -198,7 +198,7 @@ int main(int argc, char * argv[]) try
 
 		//// 读取外参 姿态矩阵 4*4
 		std::vector<cv::Mat> vecHg, vecHc;
-		bool ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
+		ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
 			R"(data/pose/)", vecHg, vecHc, false);
 
 		//// 手眼标定
@@ -211,9 +211,9 @@ int main(int argc, char * argv[]) try
 	}
 
 
-	cv::Point2d imgPt(664.0, 332.0);
-	double distance = 0.553;
-	cv::Mat e_pos = (cv::Mat_<double>(1, 6) << -0.14579, 0.74027, -0.01126, 177.296532, -0.864936, -10.931379);
+	cv::Point2d imgPt(755.0, 408.0);
+	double distance = 0.758;
+	cv::Mat e_pos = (cv::Mat_<double>(1, 6) << -0.28560, 0.37303, 0.17950, -177.57, 3.734, 18.55);
 
 
 	cv::Mat camMatrix, distCoefs;
@@ -234,11 +234,6 @@ int main(int argc, char * argv[]) try
 	std::cout << Hcg << std::endl;
 	std::cout << "-------------------" << std::endl;
 
-	cv::Mat Hcg1 = (cv::Mat_<double>(4, 4) << 0.98703, 0.149747, -0.0578592, -0.00130039,
-		-0.153186,  0.986347, -0.0604505, -0.118855,
-		0.048017, 0.0685297,  0.996493,  0.139646,
-		0.0,  0.0,  0.0,  1.0);
-
 
 	cv::Mat tmp = HandEyeCalibration::attitudeVectorToMatrix(e_pos, false, "xyz");
 
@@ -247,7 +242,7 @@ int main(int argc, char * argv[]) try
 
 	//	cv::Mat pos_m = tmp*X.inv()*camp;
 	cv::Point3d pos = HandEyeCalibration::getWorldPos(
-		imgPt, distance, Hcg, tmp, camMatrix, cv::Mat(), cv::Mat());
+		imgPt, distance, Hcg, tmp, camMatrix);
 	//	std::cout << "Object =" << pos_m << std::endl;
 	std::cout << "Object =" << pos << std::endl;
 

@@ -547,39 +547,9 @@ return res;
 *	@return 空间三维点坐标
 */
 cv::Point3d HandEyeCalibration::getWorldPos(cv::Point2d& imgPt, double z,
-	cv::Mat& Hcg, cv::Mat& Hg, cv::Mat& camMatrix,
-	cv::Mat& refHg, cv::Mat& refExtMatrix)
+	cv::Mat& Hcg, cv::Mat& Hg, cv::Mat& camMatrix)
 {
 	CV_Assert(Hcg.type() == CV_64FC1 && Hg.type() == CV_64FC1 && camMatrix.type() == CV_64FC1);
-
-#if 0	
-	double  u = imgPt.x, v = imgPt.y;
-
-	cv::Mat M = camMatrix*Mat::eye(3, 4, CV_64F)*Hcg.inv()*Hg;
-	//cv::Mat M = camMatrix*Mat::eye(3, 4, CV_64F)*Hcg*Hg;
-
-	cv::Matx34d MM(M);
-
-	cv::Mat M1 = (Mat_<double>(2, 2) <<
-		u*MM(2, 0) - MM(0, 0), u*MM(2, 1) - MM(0, 1),
-		v*MM(2, 0) - MM(1, 0), v*MM(2, 1) - MM(1, 1));
-	cv::Mat Mr = (Mat_<double>(2, 1) <<
-		MM(0, 3) - u*MM(2, 3) - z*(u*MM(2, 2) - MM(0, 2)),
-		MM(1, 3) - v*MM(2, 3) - z*(v*MM(2, 2) - MM(1, 2)));
-
-	cv::Mat res(3, 1, CV_64F, cv::Scalar(z));
-	res({ 0,0,1,2 }) = M1.inv()*Mr;
-#endif
-
-	if (!refHg.empty() && !refExtMatrix.empty())
-	{
-		cv::Mat routeRef = refHg*Hcg.inv()*refExtMatrix;
-		//	Mat routePredPri = refHg*Hcg.inv();
-		cv::Mat routePredPriInv = Hcg*refHg.inv();
-		//	Mat predExtMat = routePredPri.inv()*routeRef;
-		cv::Mat predExtMat = routePredPriInv*routeRef;
-		z = predExtMat.at<double>(2, 3);
-	}
 
 
 	cv::Mat imgPosHomo = cv::Mat::ones(3, 1, CV_64F);
@@ -590,7 +560,7 @@ cv::Point3d HandEyeCalibration::getWorldPos(cv::Point2d& imgPt, double z,
 	cv::Mat camPos = camMatInv*z*imgPosHomo;
 	camPos.copyTo(camPosHomo({ 0,0,1,3 }));
 
-	cv::Mat resHomo = Hg * Hcg.inv()*camPosHomo;
+	cv::Mat resHomo = Hg * Hcg*camPosHomo;
 	cv::Mat res = resHomo({ 0,0,1,3 });
 
 	return cv::Point3d(res);
