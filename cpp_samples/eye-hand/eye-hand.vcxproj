@@ -157,7 +157,6 @@
     <ClInclude Include="ImageAlgo_HandEye_Calibration.h" />
     <ClInclude Include="Image_Params.h" />
     <ClInclude Include="Image_Processing.h" />
-    <ClInclude Include="unistd.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="VERSION.h" />
   </ItemGroup>

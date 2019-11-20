@@ -34,7 +34,7 @@ void get3d_from2d(const rs2::depth_frame& frame, pixel u, float *upoint);
 
 int main(int argc, char * argv[]) try
 {
-#if 0
+
 	// Declare depth colorizer for pretty visualization of depth data
 	rs2::colorizer color_map;
 
@@ -165,18 +165,18 @@ int main(int argc, char * argv[]) try
 			break;
 		}
 	}
-#else
 
 
 
-#if 1
+
+
 
 	//标定
 	if (false) 
 	{
-		std::string path = R"(data/images/)";
+		std::string path = R"(data/chessboard/images/)";
 		//CHESSBOARD : 11*8  30mm
-		//CIRCLES_GRID : 7*7  3.75mm
+		//CIRCLES_GRID : 7*7  12.5mm
 		HandEyeCalibration handEye(path, "camera_data.yml", { 11,8 }, 0.03, Calibration::CHESSBOARD);
 		bool ret = handEye.doCalibration();
 		if (ret)
@@ -199,7 +199,7 @@ int main(int argc, char * argv[]) try
 		//// 读取外参 姿态矩阵 4*4
 		std::vector<cv::Mat> vecHg, vecHc;
 		ret = HandEyeCalibration::readDatasFromFile("camera_data.yml",
-			R"(data/pose/)", vecHg, vecHc, false);
+			R"(data/chessboard/pose/)", vecHg, vecHc, false);
 
 		//// 手眼标定
 		cv::Mat Hcg;
@@ -211,8 +211,8 @@ int main(int argc, char * argv[]) try
 	}
 
 
-	cv::Point2d imgPt(755.0, 408.0);
-	double distance = 0.758;
+	cv::Point2d imgPt(center_x, center_y);
+	double distance = cpoint[2];
 	cv::Mat e_pos = (cv::Mat_<double>(1, 6) << -0.28560, 0.37303, 0.17950, -177.57, 3.734, 18.55);
 
 
@@ -247,17 +247,10 @@ int main(int argc, char * argv[]) try
 	std::cout << "Object =" << pos << std::endl;
 
 
-#endif
-#endif
+
+
 	return EXIT_SUCCESS;
 }
-
-
-
-
-
-
-
 
 
 

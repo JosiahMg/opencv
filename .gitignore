@@ -7,7 +7,9 @@ cpp_samples/cascade/x64/Release/
 cpp_samples/eigen_geometry/x64/Release/
 cpp_samples/eigen_sample/x64/Release/
 cpp_samples/eye-hand/x64/Release/
+cpp_samples/file_opers/x64/Release/
 cpp_samples/inRange/x64/Release/
+cpp_samples/mat/x64/Release/
 cpp_samples/matchTemplate/x64/Release/
 cpp_samples/minMaxLoc/x64/Release/
 cpp_samples/ROI_save/x64/Release/

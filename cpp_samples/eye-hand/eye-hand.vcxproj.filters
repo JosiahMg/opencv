@@ -44,8 +44,5 @@
     <ClInclude Include="VERSION.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="unistd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
