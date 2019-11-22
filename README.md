@@ -6,7 +6,7 @@
 	python3.6 opencv3.4.1
 
 # 第三方库
-1.third-party\opencv343 
+1. third-party\opencv343 
 opencv的Release的库文件 x64
 
 2. third-party\Intel RealSense SDK 2.0 
@@ -14,6 +14,10 @@ RealSense的库文件 x64
 
 3. eigen337
 矩阵运算的c++库
+
+4. PCL
+下载PCL-1.8.1-AllInOne-msvc2015-win64.exe进行安装，然后导入PCL.props配置文件。
+
 
 # 示例代码
 
@@ -77,4 +81,13 @@ opencv中Mat的使用
 设置三通道像素值
 
 
+## pcl_CapturePcd
+从realsense相机中读取深度和BGR信息，保存到PCD文件。
+
+
+## pcl_PLY2PCD
+读取ply文件并转成pcd文件，随后读取pcd并显示
+
+## pcl-depthShowPc
+从深度相机或者bag文件读取一帧深度图片，将其转换成点云并显示。
 

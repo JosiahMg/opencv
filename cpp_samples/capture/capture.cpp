@@ -15,6 +15,9 @@
 
 int main(int argc, char * argv[]) try
 {
+	rs2::config cfg;
+	cfg.enable_device_from_file("D:/realsense/bag/20191104_205917.bag");
+
 	// Declare depth colorizer for pretty visualization of depth data
 	rs2::colorizer color_map;
 
@@ -31,7 +34,7 @@ int main(int argc, char * argv[]) try
 	{
 		rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
 		rs2::frame depth = data.get_depth_frame().apply_filter(color_map);
-
+		rs2::video_frame color = data.get_color_frame();
 		// Query frame size (width and height)
 		const int w = depth.as<rs2::video_frame>().get_width();
 		const int h = depth.as<rs2::video_frame>().get_height();

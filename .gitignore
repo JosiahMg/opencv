@@ -12,6 +12,9 @@ cpp_samples/inRange/x64/Release/
 cpp_samples/mat/x64/Release/
 cpp_samples/matchTemplate/x64/Release/
 cpp_samples/minMaxLoc/x64/Release/
+cpp_samples/pcl_CapturePcd/x64/Release/
+cpp_samples/pcl_PLY2PCD/x64/Release/
+cpp_samples/pcl-depthShowPc/x64/Release/
 cpp_samples/ROI_save/x64/Release/
 cpp_samples/test/
 cpp_samples/Trackbar/x64/Release/

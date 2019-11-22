@@ -45,8 +45,8 @@ int main(int argc, char** argv)
 	Eigen::Vector3d eular_angle(0.2*M_PI, 0.3*M_PI, 0.4*M_PI);
 	eulerAngleToOther(eular_angle);
 
-	//四元数-> other (w,x,y,z)
-	Eigen::Quaterniond quaternion(1, 2, 3, 4);
+	//四元数-> other (w,x,y,z) (1,0,0,0)相当于没有旋转和平移
+	Eigen::Quaterniond quaternion(1., 0., 0., 0.);
 	quaterniondToOther(quaternion);
 
 
