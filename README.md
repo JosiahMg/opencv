@@ -71,6 +71,9 @@ opencv中Mat的使用
 ## minMaxLoc
 寻找图片中最大像素和最小像素的坐标值
 
+## PoseEstimation
+通过d415相机抓取深度图并生成点云，经过滤波、平面分离以及聚类，最后使用PCA计算位姿。
+
 ## ROI_save
 图片区域保存
 
