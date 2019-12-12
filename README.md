@@ -77,6 +77,9 @@ opencv中Mat的使用
 ## ROI_save
 图片区域保存
 
+## shapeMatch
+基于模板制作不同角度的2D位姿，通过匹配姿势实现位姿估计。
+
 ## Trackbar
 状态条的使用
 
